@@ -2,6 +2,16 @@ from flask import Flask, request, jsonify
 import subprocess
 import sys
 import json
+import os
+
+PORT = 5000
+if os.environ.get('PORT'):
+  try:
+    p = int(os.environ.get('PORT'))
+    print("> chaning port to :", p)
+    PORT = p
+  except:
+    PORT = 5000
 
 def res_send(content):
   if "text/html" in request.headers.get('Accept'): return "<pre>"+content+"</pre>"
@@ -24,7 +34,7 @@ def getOutputSmt():
   try:
     content = file('output/output.smt2').read()
   except:
-    print "empty"
+    print("empty")
   return res_send(content)
 
 @app.route("/api/output.json")
@@ -33,7 +43,7 @@ def getOutputJSON():
   try:
     content = file('output/output.json').read()
   except:
-    print "empty"
+    print("empty")
   return jsonify(content)
 
 @app.route("/api/maindata.json")
@@ -45,7 +55,7 @@ def getMaindataJSON():
     maindata["blob"] = None
     return jsonify(maindata)
   except:
-    print "empty"
+    print("empty")
   return content
 
 @app.route("/api/config")
@@ -110,4 +120,4 @@ def run():
   return res_send(content)
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=5000)
+  app.run(host='0.0.0.0', port=PORT)
