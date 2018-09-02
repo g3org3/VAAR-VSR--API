@@ -1,0 +1,6 @@
+timeout=60
+suggestions=0
+maxChanges=10
+apiOutput=
+experimental=1
+optimize=1
