@@ -42,9 +42,11 @@ def getOutputJSON():
   content = "empty"
   try:
     content = file('output/output.json').read()
+    content = json.loads(content)
+    return jsonify(content)
   except:
     print("empty")
-  return jsonify(content)
+  return content
 
 @app.route("/api/maindata.json")
 def getMaindataJSON():
