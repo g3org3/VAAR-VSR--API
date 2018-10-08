@@ -1,4 +1,4 @@
-FROM registry.jorgeadolfo.com/epav:1.0.1
+FROM registry.jorgeadolfo.com/epav:1.1.0
 
 RUN apt-get update && apt-get install -y unzip
 

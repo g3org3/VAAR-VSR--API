@@ -5,6 +5,8 @@ import json
 import os
 
 PORT = 5000
+CLI_PATH = '/cli/cli.py'
+
 if os.environ.get('PORT'):
   try:
     p = int(os.environ.get('PORT'))
@@ -12,6 +14,9 @@ if os.environ.get('PORT'):
     PORT = p
   except:
     PORT = 5000
+
+if os.environ.get('CLI_PATH'):
+  CLI_PATH = str(os.environ.get('CLI_PATH'))
 
 def res_send(content):
   if "text/html" in request.headers.get('Accept'): return "<pre>"+content+"</pre>"
@@ -116,7 +121,7 @@ def setRules():
 ------------------------------------"""
 @app.route("/api/run")
 def run():
-  content = shell("python /cli/cli.py -t files/rules.smt -c files/tosca-conf.yml -k files/config")
+  content = shell("python "+ CLI_PATH +" -t files/rules.smt -c files/tosca-conf.yml -k files/config")
   content = content.replace("[4m", "")
   content = content.replace("[0m", "")
   return res_send(content)
